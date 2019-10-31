@@ -127,7 +127,6 @@ class QueensSolver
             // If valid move is found, add the board with queen to the state manager
             if ($board->isValidMove($move->x, $move->y)) {
                 $board = $this->stateManager->cloneBoard();
-                
                 $this->stateManager->addBoard($board->addQueen($move->x, $move->y));
             }
         }

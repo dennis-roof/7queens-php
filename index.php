@@ -49,4 +49,4 @@ foreach ($solutions as $board) {
 
 echo '---' . PHP_EOL;
 echo 'Total of ' . count($solutions) . ' unique solutions found for board size: ';
-echo $boardSize . PHP_EOL;
+echo $boardSize . '!' . PHP_EOL;

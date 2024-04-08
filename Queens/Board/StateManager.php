@@ -18,7 +18,7 @@ class StateManager
      * Array with all boards, each board represent a queen move.
      */
     protected $boards = [];
-    
+
     /**
      * Add a board with the next queen piece.
      *
@@ -32,7 +32,7 @@ class StateManager
         
         return $this;
     }
-    
+
     /**
      * Revert the last board move.
      *
@@ -44,7 +44,7 @@ class StateManager
         
         return $this;
     }
-    
+
     /**
      * Get the current board
      *
@@ -58,7 +58,7 @@ class StateManager
         
         return BoardFactory::createBoard();
     }
-    
+
     /**
      * Clone the current board for the next queen move.
      *
@@ -68,7 +68,7 @@ class StateManager
     {
         return clone end($this->boards);
     }
-    
+
     /**
      * Count number of boards in the state manager, this equals the number of moves.
      *

@@ -14,8 +14,8 @@ class StateManagerTest extends \PHPUnit\Framework\TestCase
     public function testRevertState()
     {
         $stateManager = new \Queens\Board\StateManager();
-        $board1 = new \Queens\Board\Board(6);
-        $board2 = new \Queens\Board\Board(7);
+        $board1 = new \Queens\Board\Board(size: 6);
+        $board2 = new \Queens\Board\Board(size: 7);
 
         $stateManager->addBoard($board1)->addBoard($board2);
         $this->assertEquals($stateManager->getBoard(), $board2);
@@ -27,7 +27,7 @@ class StateManagerTest extends \PHPUnit\Framework\TestCase
     public function testCloneBoard()
     {
         $stateManager = new \Queens\Board\StateManager();
-        $board = new \Queens\Board\Board(6);
+        $board = new \Queens\Board\Board(size: 6);
 
         $stateManager->addBoard($board);
 
@@ -37,11 +37,13 @@ class StateManagerTest extends \PHPUnit\Framework\TestCase
     public function testCountStates()
     {
         $stateManager = new \Queens\Board\StateManager();
-        $board1 = new \Queens\Board\Board(6);
-        $board2 = new \Queens\Board\Board(7);
-        $board3 = new \Queens\Board\Board(8);
+        $board1 = new \Queens\Board\Board(size: 6);
+        $board2 = new \Queens\Board\Board(size: 7);
+        $board3 = new \Queens\Board\Board(size: 8);
 
-        $stateManager->addBoard($board1)->addBoard($board2)->addBoard($board3);
+        $stateManager->addBoard(board: $board1)
+            ->addBoard(board: $board2)
+            ->addBoard(board: $board3);
 
         $this->assertEquals($stateManager->countStates(), 3);
     }

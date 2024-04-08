@@ -19,22 +19,22 @@ class Board
      */
     protected int $posX = -1;
     protected int $posY = -1;
-    
+
     /**
      * Board size
      */
     protected int $size = 0;
-    
+
     /**
      * Board with the queen pieces.
      */
     protected array $board = [];
-    
+
     /**
      * Board with all remaining valid moves for the next queen piece.
      */
     protected array $validMoves = [];
-    
+
     /**
      * Create a new board with a given board size.
      *
@@ -43,18 +43,18 @@ class Board
     public function __construct(int $size = 0)
     {
         if ($size <= 0) {
-			return;
-		}
+            return;
+        }
 
-       	$this->size = $size;
+        $this->size = $size;
         
- 		// On the board, 0 is an empty spot and 1 is a queen piece
-		$this->board = $this->generateBoard(boardSize: $size, filler: 0);
-		
-		// On the valid moves map, 0 is an invalid move and 1 is a valid move
-		$this->validMoves = $this->generateBoard(boardSize: $size, filler: 1);
+        // On the board, 0 is an empty spot and 1 is a queen piece
+        $this->board = $this->generateBoard(boardSize: $size, filler: 0);
+        
+        // On the valid moves map, 0 is an invalid move and 1 is a valid move
+        $this->validMoves = $this->generateBoard(boardSize: $size, filler: 1);
     }
-    
+
     /**
      * 2D board generator for the queen pieces and valid moves.
      *
@@ -65,11 +65,11 @@ class Board
      */
     protected function generateBoard(int $boardSize, int $filler): array
     {
-		return array_fill(0, $boardSize, array_fill(
-			0, $boardSize, $filler)
-		);
+        return array_fill(0, $boardSize, array_fill(
+            0, $boardSize, $filler)
+        );
     }
-    
+
     /**
      * Check if this board is empty, board size 0 is empty.
      *
@@ -79,7 +79,7 @@ class Board
     {
         return $this->size === 0;
     }
-    
+
     /**
      * Get the latest queen piece X coordinate.
      *
@@ -89,8 +89,8 @@ class Board
     {
         return $this->posX;
     }
-    
-    
+
+
     /**
      * Get the latest queen piece Y coordinate.
      *
@@ -100,7 +100,7 @@ class Board
     {
         return $this->posY;
     }
-    
+
     /**
      * Get the board size.
      *
@@ -110,7 +110,7 @@ class Board
     {
         return $this->size;
     }
-    
+
     /**
      * Get the 2D board with the queen pieces.
      *
@@ -120,7 +120,7 @@ class Board
     {
         return $this->board;
     }
-    
+
     /**
      * Get the 2D board with the valid moves for the next queen piece.
      *
@@ -130,7 +130,7 @@ class Board
     {
         return $this->validMoves;
     }
-    
+
     /**
      * Manually invalidate a specific move for the next queen piece.
      *
@@ -145,7 +145,7 @@ class Board
         
         return $this;
     }
-    
+
     /**
      * Find a valid move for the next queen piece.
      *
@@ -164,7 +164,7 @@ class Board
         // Return a negative (invalid) coordinate if no valid moves are found
         return (object) ['x' => -1, 'y' => -1];
     }
-    
+
     /**
      * Check if two X and Y coordinates have a diagonal intersection.
      *
@@ -179,7 +179,7 @@ class Board
     {
         return (abs($x1 - $x2) === abs($y1 - $y2));
     }
-    
+
     /**
      * Check if a specific move is a valid move on the board.
      *
@@ -192,7 +192,7 @@ class Board
     {
         return ($x !== -1 && $y !== -1);
     }
-    
+
     /**
      * Add the next queen piece, update the board accordingly.
      *

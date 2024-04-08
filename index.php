@@ -43,12 +43,12 @@ echo 'Solutions (0 is an empty spot, 1 is a queen piece):' . PHP_EOL;
 foreach ($solutions as $boardRows) {
     echo '---' . PHP_EOL;
 
-	$boardOutput = array_reduce($boardRows, function(string $boardOutput, array $boardRow): string {
-		$boardOutput .= implode('', $boardRow) . PHP_EOL;
-		return $boardOutput;
-	}, '');
+    $boardOutput = array_reduce($boardRows, function(string $boardOutput, array $boardRow): string {
+        $boardOutput .= implode('', $boardRow) . PHP_EOL;
+        return $boardOutput;
+    }, '');
 
-	echo $boardOutput;
+    echo $boardOutput;
 }
 
 echo '---' . PHP_EOL;

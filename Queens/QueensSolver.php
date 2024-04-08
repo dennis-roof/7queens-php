@@ -24,12 +24,12 @@ class QueensSolver
      * Initial chess board
      */
     protected ?Board $board = null;
-    
+
     /**
      * State manager for adding and reverting queen moves
      */
     protected ?StateManager $stateManager = null;
-    
+
     /**
      * Set the initial board, including the board size
      *
@@ -43,7 +43,7 @@ class QueensSolver
         
         return $this;
     }
-    
+
     /**
      * Set the state manager, so we can add and revert queen moves
      *
@@ -57,7 +57,7 @@ class QueensSolver
         
         return $this;
     }
-    
+
     /**
      * Each state in the state manager represents a queen move on the board.
      * So when the number of states equals the board size, a solution is found.
@@ -67,17 +67,17 @@ class QueensSolver
      */
     protected function isSolved(): bool
     {
-		if ($this->stateManager === null) {
-			// If state manager is not set, break loop with "true" response
-			return true;
-		}
+        if ($this->stateManager === null) {
+            // If state manager is not set, break loop with "true" response
+            return true;
+        }
 
         $numberOfQueenPieces = ($this->stateManager->countStates() - 1);
         $boardSize = $this->stateManager->getBoard()->getSize();
         
         return ($numberOfQueenPieces === $boardSize);
     }
-    
+
     /**
      * Find all solutions for the queens problem using the strategy described above.
      *
@@ -85,9 +85,9 @@ class QueensSolver
      */
     public function getAllSolutions(): array
     {
-		if ($this->stateManager === null || $this->board === null) {
-			return [];
-		}
+        if ($this->stateManager === null || $this->board === null) {
+            return [];
+        }
 
         // Storage for all solutions
         $solutions = [];

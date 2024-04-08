@@ -1,6 +1,8 @@
-# 7 Queens chess board solver
+# N Queens chess puzzle solver
 
-Display all "7 Queens" solutions on screen, either in browser or in console.
+This N Queens chess puzzle solver can provide all possible solutions involving placing a given number of queens on an 8x8 chess board so that no two queens threaten each other.
+
+By default, the board displays all solutions to placing 7 queens on the board. The solution can be shown either in browser on in console.
 
 # Installation
 
@@ -9,6 +11,8 @@ Install dependencies using composer command: `composer install`
 # Running in CLI
 
 For PHP CLI, use the following command: `php index.php`
+
+For running the solution in the browser, use the following command: `php -S localhost:8000 index.php`
 
 PHP version requirement: 8.2+
 

@@ -1,8 +1,8 @@
 # N Queens chess puzzle solver
 
-This N Queens chess puzzle solver can provide all possible solutions involving placing a given number of queens on an 8x8 chess board so that no two queens threaten each other.
+This N Queens chess puzzle solver can provide all possible solutions involving placing a given number of queens on an NxN chess board so that no two queens threaten each other.
 
-By default, the board displays all solutions to placing 7 queens on the board. The solution can be shown either in browser on in console.
+By default, the board displays all solutions to placing 7 queens on a 7x7 board. The solution can be shown either in browser on in console.
 
 # Installation
 

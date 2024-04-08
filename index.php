@@ -27,7 +27,7 @@ $boardSize = 7;
 $queensSolver = new QueensSolver();
 
 // Add the chess board to the Queens problem solver
-$queensSolver->setBoard(new Board($boardSize));
+$queensSolver->setBoard(new Board(size: $boardSize));
 
 // Add the board state manager to the Queens problem solver
 $queensSolver->setStateManager(new StateManager());

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PHP version 7.1+
+ * PHP version 8.2+
  *
  * @package Queens\Board\StateManager
  * @author  Dennis Roof <dennis.roof.it@gmail.com>

@@ -4,8 +4,8 @@
  * Display all "7 Queens" solutions on screen, either in browser or in console.
  * For PHP CLI: "php index.php"
  *
- * PHP version: 7.1+
- * Tested with PHP version 7.3.9
+ * PHP version: 8.2+
+ * Tested with PHP version 8.2.15
  *
  * @author Dennis Roof <dennis.roof.it@gmail.com>
  */
@@ -38,13 +38,17 @@ $solutions = $queensSolver->getAllSolutions();
 // Display all found solutions and total number of solutions
 // On these boards, 0 is an empty spot and 1 is a queen piece
 echo '<pre>' . PHP_EOL;
-echo 'solutions (0 is an empty spot, 1 is a queen piece):' . PHP_EOL;
+echo 'Solutions (0 is an empty spot, 1 is a queen piece):' . PHP_EOL;
 
-foreach ($solutions as $board) {
+foreach ($solutions as $boardRows) {
     echo '---' . PHP_EOL;
-    for ($row = 0; $row < count($board); $row++) {
-        echo implode('', $board[$row]) . PHP_EOL;
-    }
+
+	$boardOutput = array_reduce($boardRows, function(string $boardOutput, array $boardRow): string {
+		$boardOutput .= implode('', $boardRow) . PHP_EOL;
+		return $boardOutput;
+	}, '');
+
+	echo $boardOutput;
 }
 
 echo '---' . PHP_EOL;

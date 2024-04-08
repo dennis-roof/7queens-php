@@ -1,6 +1,6 @@
 <?php
 
-class FactoryBoardTest extends \PHPUnit\Framework\TestCase
+class BoardFactoryTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreateBoard()
     {

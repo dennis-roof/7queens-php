@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PHP version 7.1+
+ * PHP version 8.2+
  *
  * @package Queens\Board\Board
  * @author  Dennis Roof <dennis.roof.it@gmail.com>
@@ -17,23 +17,23 @@ class Board
     /**
      * X and Y position of the latest queen piece added to the board.
      */
-    protected $posX = -1;
-    protected $posY = -1;
+    protected int $posX = -1;
+    protected int $posY = -1;
     
     /**
      * Board size
      */
-    protected $size = 0;
+    protected int $size = 0;
     
     /**
      * Board with the queen pieces.
      */
-    protected $board = [];
+    protected array $board = [];
     
     /**
      * Board with all remaining valid moves for the next queen piece.
      */
-    protected $validMoves = [];
+    protected array $validMoves = [];
     
     /**
      * Create a new board with a given board size.
@@ -42,15 +42,17 @@ class Board
      */
     public function __construct(int $size = 0)
     {
-        $this->size = $size;
+        if ($size <= 0) {
+			return;
+		}
+
+       	$this->size = $size;
         
-        if ($size > 0) {
-            // On the board, 0 is an empty spot and 1 is a queen piece
-            $this->board = $this->generateBoard($size, 0);
-            
-            // On the valid moves map, 0 is an invalid move and 1 is a valid move
-            $this->validMoves = $this->generateBoard($size, 1);
-        }
+ 		// On the board, 0 is an empty spot and 1 is a queen piece
+		$this->board = $this->generateBoard(boardSize: $size, filler: 0);
+		
+		// On the valid moves map, 0 is an invalid move and 1 is a valid move
+		$this->validMoves = $this->generateBoard(boardSize: $size, filler: 1);
     }
     
     /**
@@ -61,18 +63,11 @@ class Board
      *
      * @return array Generated 2D board with specific size and filler values.
      */
-    final protected function generateBoard(int $boardSize, int $filler): array
+    protected function generateBoard(int $boardSize, int $filler): array
     {
-        $board = [];
-        for ($y = 0; $y < $boardSize; $y++) {
-            $boardRow = [];
-            for ($x = 0; $x < $boardSize; $x++) {
-                $boardRow[] = $filler;
-            }
-            $board[] = $boardRow;
-        }
-        
-        return $board;
+		return array_fill(0, $boardSize, array_fill(
+			0, $boardSize, $filler)
+		);
     }
     
     /**
@@ -180,7 +175,7 @@ class Board
      *
      * @return bool Do the first and second move intersect diagonally, true or false.
      */
-    final protected function isDiagonal(int $x1, int $y1, int $x2, int $y2): bool
+    protected function isDiagonal(int $x1, int $y1, int $x2, int $y2): bool
     {
         return (abs($x1 - $x2) === abs($y1 - $y2));
     }
@@ -226,7 +221,7 @@ class Board
                 // Mark horizontal, vertical and diagonal moves as invalid
                 if ($x === $posX
                     || $y === $posY
-                    || $this->isDiagonal($posX, $posY, $x, $y)
+                    || $this->isDiagonal(x1: $posX, y1: $posY, x2: $x, y2: $y)
                 ) {
                     $this->validMoves[$y][$x] = 0;
                 }

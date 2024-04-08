@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PHP version 7.1+
+ * PHP version 8.2+
  *
  * @package Queens\QueensSolver
  * @author  Dennis Roof <dennis.roof.it@gmail.com>
@@ -23,12 +23,12 @@ class QueensSolver
     /**
      * Initial chess board
      */
-    protected $board = null;
+    protected ?Board $board = null;
     
     /**
      * State manager for adding and reverting queen moves
      */
-    protected $stateManager = null;
+    protected ?StateManager $stateManager = null;
     
     /**
      * Set the initial board, including the board size
@@ -65,8 +65,13 @@ class QueensSolver
      *
      * @return bool Is problem solved, true or false.
      */
-    final protected function isSolved(): bool
+    protected function isSolved(): bool
     {
+		if ($this->stateManager === null) {
+			// If state manager is not set, break loop with "true" response
+			return true;
+		}
+
         $numberOfQueenPieces = ($this->stateManager->countStates() - 1);
         $boardSize = $this->stateManager->getBoard()->getSize();
         
@@ -80,15 +85,20 @@ class QueensSolver
      */
     public function getAllSolutions(): array
     {
+		if ($this->stateManager === null || $this->board === null) {
+			return [];
+		}
+
         // Storage for all solutions
         $solutions = [];
         
         // Add the initial board state (no queens)
-        $this->stateManager->addBoard($this->board);
+        $this->stateManager->addBoard(board: $this->board);
         
         while (true) {
             // If the state manager no longer has any boards, break
             $board = $this->stateManager->getBoard();
+
             if ($board->isEmpty()) {
                 break;
             }
@@ -99,10 +109,10 @@ class QueensSolver
             }
             
             // Find a valid move for the next queen piece
-            $move = $board->findValidMove($board->getValidMoves());
+            $move = $board->findValidMove();
             
             // Either when no valid moves are found or a solution is found
-            if (! $board->isValidMove($move->x, $move->y) || $this->isSolved()) {
+            if (! $board->isValidMove(x: $move->x, y: $move->y) || $this->isSolved()) {
                 do {
                     // Remember this wrong solution for the queen position
                     $wrongBoard = $this->stateManager->getBoard();
@@ -115,19 +125,19 @@ class QueensSolver
                     
                     // Invalidate the queen move from the wrong solution
                     $this->stateManager->getBoard()->invalidateMove(
-                        $wrongBoard->getPosX(),
-                        $wrongBoard->getPosY()
+                        x: $wrongBoard->getPosX(),
+                        y: $wrongBoard->getPosY()
                     );
                     
                     // Now find the next valid move, excluding the previous wrong one
                     $move = $board->findValidMove();
-                } while (! $board->isValidMove($move->x, $move->y));
+                } while (! $board->isValidMove(x: $move->x, y: $move->y));
             }
             
             // If valid move is found, add the board with queen to the state manager
-            if ($board->isValidMove($move->x, $move->y)) {
+            if ($board->isValidMove(x: $move->x, y: $move->y)) {
                 $board = $this->stateManager->cloneBoard();
-                $this->stateManager->addBoard($board->addQueen($move->x, $move->y));
+                $this->stateManager->addBoard(board: $board->addQueen(posX: $move->x, posY: $move->y));
             }
         }
         
